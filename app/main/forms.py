@@ -2,14 +2,13 @@
 
 # @Time    : 2019/1/31 10:05 PM
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
 
 __author__ = 'Allen LIANG'
 
 
 class LoginForm(FlaskForm):
-    username = StringField()
-    pw = StringField()
-    hash_pwd = StringField()
-    email = StringField()
-    # last_avtive =
+    username = StringField(label='Username', validators=[DataRequired()])
+    pw = StringField('Password', validators=[DataRequired()])
+    submit = SubmitField('Sign In')
