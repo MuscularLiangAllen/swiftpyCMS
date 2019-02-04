@@ -3,8 +3,8 @@ import datetime
 import time
 import uuid
 
+import shortuuid
 from flask_login import UserMixin
-from flask_sqlalchemy import Model
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db, login
@@ -14,14 +14,24 @@ def next_uuid():
     return '%015d%s' % ((time.time()*1000), uuid.uuid4().hex)
 
 
-class User(UserMixin, Model):
+def short_uuid():
+    return shortuuid.uuid()
+
+
+class User(UserMixin, db.Model):
     id = db.Column(db.String(50), primary_key=True, default=next_uuid)
-    username = db.Column(db.String(50), index=True, unique=True)
-    hashed_pw = db.Column(db.String(128))
+    username = db.Column(db.String(50), index=True, nullable=False, unique=True)
+    hashed_pw = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(120), index=True, unique=True)
-    register_time = db.Column(db.DateTime, default=datetime.datetime.now())
+    register_time = db.Column(db.DateTime, default=datetime.datetime.now)
     # local time, instead of utcnow()
-    last_active = db.Column(db.DateTime, default=datetime.datetime.now())
+    r'''
+    :param type\_: The column's type, indicated using an instance which
+          subclasses :class:`~sqlalchemy.types.TypeEngine`.  If no arguments
+          are required for the type, the class of the type can be sent
+          as well, e.g.::
+    '''
+    last_active = db.Column(db.DateTime, default=datetime.datetime.now)
 
     # hashing the password via generate_password_hash(method='pbkdf2:sha256')
     def set_password(self, password):
@@ -31,9 +41,20 @@ class User(UserMixin, Model):
         return check_password_hash(self.hashed_pw, password)
 
     def __str__(self):
-        return '<User: %s>' % self.username
+        return '<User: {}, ID: {}>'.format(self.username, self.id)
 
     __repr__ = __str__
+
+
+class Article(db.Model):
+    id = db.Column(db.String(50), primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    intro = db.Column(db.Text)
+    content = db.Column(db.Text, nullable=False)
+    # belong_to = db.Column()
+    url = db.Column(db.String(40), unique=True, nullable=False, default=short_uuid)
+    post_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
+    last_modified = db.Column(db.DateTime)
 
 
 @login.user_loader

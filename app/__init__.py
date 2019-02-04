@@ -20,6 +20,6 @@ login.login_view = 'login'
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from app import routes
+from app import routes, models
 from app.main import forms
 

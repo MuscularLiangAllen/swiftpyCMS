@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # @Time    : 2019/1/31 9:58 PM
-from app import app
+from app import app, db
 
 __author__ = 'Allen LIANG'
 
