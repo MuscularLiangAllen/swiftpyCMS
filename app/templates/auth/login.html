@@ -1,60 +1,69 @@
 {% extends "main/base.html" %}
 
 {% block content %}
-<div class="login-box">
-  <div class="login-logo">
-    {% if sys_name %}
-    {{ sys_name }}
-    {% else %}
-    <b>swiftpy</b>CMS
-    {% endif %}
-  </div>
-  <!-- /.login-logo -->
-  <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      {% if sys_name %}
+      {{ sys_name }}
+      {% else %}
+      <b>swiftpy</b>CMS
+      {% endif %}
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+        <p class="login-box-msg" style="color: #b92c28;">{{ message }}</p>
+        {% endfor %}
+      {% else %}
+      <p class="login-box-msg">Sign in to start your session</p>
+      {% endif %}
+      {% endwith %}
 
-    <form action="" method="post" novalidate>
-      {{ form.hidden_tag() }}
-      <div class="form-group has-feedback">
-        {{form.username(class='form-control', placeholder=form.username.label.text)}}
-        <!--<input type="text" class="form-control" placeholder={{form.username.label.text}}>-->
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-      </div>
-      {% for error in form.username.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-      <div class="form-group has-feedback">
-        {{form.pw(class='form-control', placeholder=form.pw.label.text)}}
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      {% for error in form.pw.errors%}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-      <div class="row">
-        <div class="col-xs-8">
+      <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="form-group has-feedback">
+          {{form.username(class='form-control', placeholder=form.username.label.text)}}
+          <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
-        <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">{{form.submit.label.text}}</button>
+        {% for error in form.username.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        <div class="form-group has-feedback">
+          {{form.pw(class='form-control', placeholder=form.pw.label.text)}}
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
-        <!-- /.col -->
-      </div>
-    </form>
+        {% for error in form.pw.errors%}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+        <div class="row">
+          <div class="col-xs-8">
+          </div>
+          <!-- /.col -->
+          <div class="col-xs-4">
+            <button type="submit" class="btn btn-primary btn-block btn-flat">{{form.submit.label.text}}</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
 
-    <!--<div class="social-auth-links text-center">-->
-      <!--<p>- OR -</p>-->
-      <!--<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using-->
-        <!--Facebook</a>-->
-      <!--<a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using-->
-        <!--Google+</a>-->
-    <!--</div>-->
-    <!-- /.social-auth-links -->
+      <!--<div class="social-auth-links text-center">-->
+        <!--<p>- OR -</p>-->
+        <!--<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i class="fa fa-facebook"></i> Sign in using-->
+          <!--Facebook</a>-->
+        <!--<a href="#" class="btn btn-block btn-social btn-google btn-flat"><i class="fa fa-google-plus"></i> Sign in using-->
+          <!--Google+</a>-->
+      <!--</div>-->
+      <!-- /.social-auth-links -->
 
-    <a href="#">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a>
+      <a href="#">I forgot my password</a><br>
+      <a href="register.html" class="text-center">Register a new membership</a>
 
+    </div>
+    <!-- /.login-box-body -->
   </div>
-  <!-- /.login-box-body -->
-</div>
-<!-- /.login-box -->
+  <!-- /.login-box -->
+</body>
 {% endblock %}

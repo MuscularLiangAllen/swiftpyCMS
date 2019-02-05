@@ -8,6 +8,6 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'mysql+mysqlconnector://root:mysql57@localhost:3306/swiftpycms_db?charset=utf8'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     # 打印SQL语句
-    SQLALCHEMY_ECHO = True
+    SQLALCHEMY_ECHO = False
 
     POSTS_PER_PAGE = 3

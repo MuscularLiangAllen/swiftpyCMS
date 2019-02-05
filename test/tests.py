@@ -23,24 +23,26 @@ if __name__ == '__main__':
     # print(type(u))
     from app.models import User
 
-    # u1 = User(username='kingroot', email='liangtee@126.com')
-    # u1.set_password('kingroot')
-    # db.session.add(u1)
-    # db.session.commit()
-    import shortuuid
-    for i in range(10):
-        print(shortuuid.ShortUUID().uuid())
+    u1 = User(username='kingroot', email='liangtee@126.com')
+    u1.set_password('kingroot')
+    db.session.add(u1)
+    db.session.commit()
+    # import shortuuid
+    # for i in range(10):
+    #     print(shortuuid.ShortUUID().uuid())
+    #
+    # print(len(shortuuid.ShortUUID().uuid()))
+    #
+    # # print(datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
+    # # print(datetime.datetime.now().strftime('%y%m%d%H%M%S%f'))
+    # # print(datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
+    # print('{}{}'.format(datetime.datetime.now().strftime('%y%m%d%H%M%S'), random.randint(0, 99)))
+    # # print(len('{}{}'.format(datetime.datetime.now().strftime('%y%m%d%H%M%S'), random.randint(0, 99))))
+    #
+    # default = models.short_uuid
+    # print(default() if callable(default) else default)
 
-    print(len(shortuuid.ShortUUID().uuid()))
-
-    # print(datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
-    # print(datetime.datetime.now().strftime('%y%m%d%H%M%S%f'))
-    # print(datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
-    print('{}{}'.format(datetime.datetime.now().strftime('%y%m%d%H%M%S'), random.randint(0, 99)))
-    # print(len('{}{}'.format(datetime.datetime.now().strftime('%y%m%d%H%M%S'), random.randint(0, 99))))
-
-    default = models.short_uuid
-    print(default() if callable(default) else default)
+    # db.create_all()
 
 
 
