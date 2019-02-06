@@ -3,8 +3,8 @@
 from flask import Blueprint
 
 bp = Blueprint(
-    name='main',
+    name='auth',
     import_name=__name__
 )
 
-from app.main import routes
+from app.auth import routes

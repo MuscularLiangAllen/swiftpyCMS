@@ -19,6 +19,10 @@ def short_uuid():
 
 
 class User(UserMixin, db.Model):
+    '''
+    id, username, hashed_pw, register_time, last_active
+    '''
+
     id = db.Column(db.String(50), primary_key=True, default=next_uuid)
     username = db.Column(db.String(50), index=True, nullable=False, unique=True)
     hashed_pw = db.Column(db.String(128), nullable=False)
@@ -45,7 +49,7 @@ class User(UserMixin, db.Model):
     def set_password(self, password):
         self.hashed_pw = generate_password_hash(password)
 
-    def check_password(self, password):
+    def verify_pw(self, password):
         return check_password_hash(self.hashed_pw, password)
 
     def __str__(self):
@@ -55,7 +59,7 @@ class User(UserMixin, db.Model):
 
 
 class Article(db.Model):
-    id = db.Column(db.String(50), primary_key=True)
+    id = db.Column(db.String(50), primary_key=True, default=next_uuid)
     title = db.Column(db.String(120), nullable=False)
     intro = db.Column(db.Text)
     content = db.Column(db.Text, nullable=False)
@@ -63,7 +67,7 @@ class Article(db.Model):
     post_time = db.Column(db.DateTime, nullable=False, default=datetime.datetime.now)
     last_modified = db.Column(db.DateTime)
     user_id = db.Column(db.String(50), db.ForeignKey('user.id'))
-    section_id = db.Column(db.String(50), db.ForeignKey('section.id'))
+    category_id = db.Column(db.String(50), db.ForeignKey('category.id'))
 
     def __str__(self):
         return '<Article: %s>' % self.title
@@ -71,16 +75,16 @@ class Article(db.Model):
     __repr__ = __str__
 
 
-class Section(db.Model):
+class Category(db.Model):
     id = db.Column(db.String(50), primary_key=True, default=next_uuid)
     name = db.Column(db.String(30), nullable=False, unique=True)
     url = db.Column(db.String(40), nullable=False, unique=True)
     weight = db.Column(db.Integer, default=1)
     parent_id = db.Column(db.String(50))
-    articles = db.relationship('Article', backref='section', lazy='dynamic')
+    articles = db.relationship('Article', backref='category', lazy='dynamic')
 
     def __str__(self):
-        return '<Section: {}>'.format(self.name)
+        return '<Category: {}>'.format(self.name)
 
     __repr__ = __str__
 

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-
 from flask import Blueprint
 
 bp = Blueprint(
-    name='main',
+    name='article',
     import_name=__name__
 )
 
-from app.main import routes
+
+from app.article import routes

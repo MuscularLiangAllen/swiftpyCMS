@@ -5,8 +5,18 @@ import uuid
 
 import time
 
-from app import db, models
-from app.models import User
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+from app import db, models, create_app, Config
+from app.models import User, Article
+
+
+class Test:
+    def __init__(self, time, time_default=datetime.datetime.now):
+        if time is None and callable(time_default):
+            print(time_default())
+
 
 if __name__ == '__main__':
     # print(len(uuid.uuid4().hex))
@@ -21,12 +31,12 @@ if __name__ == '__main__':
     #
     # u = User()
     # print(type(u))
-    from app.models import User
-
-    u1 = User(username='kingroot', email='liangtee@126.com')
-    u1.set_password('kingroot')
-    db.session.add(u1)
-    db.session.commit()
+    # from app.models import User
+    #
+    # u1 = User(username='kingroot', email='liangtee@126.com')
+    # u1.set_password('kingroot')
+    # db.session.add(u1)
+    # db.session.commit()
     # import shortuuid
     # for i in range(10):
     #     print(shortuuid.ShortUUID().uuid())
@@ -43,6 +53,20 @@ if __name__ == '__main__':
     # print(default() if callable(default) else default)
 
     # db.create_all()
+
+    app = Flask(__name__)
+    app.config.from_object(Config)
+    db = SQLAlchemy(app)
+
+    t1 = Test(time=None)
+
+    u2 = User(username='test2', register_time=None)
+    u2.set_password('123')
+    print(u2.register_time)
+    db.session.add(u2)
+    db.session.commit()
+    print(u2.register_time)
+
 
 
 
