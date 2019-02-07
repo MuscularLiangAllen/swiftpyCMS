@@ -11,3 +11,8 @@ class Config:
     SQLALCHEMY_ECHO = False
 
     POSTS_PER_PAGE = 3
+
+    FS_ROOT_DIR = '/swiftpy_fs'
+    FS_ROOT_UPLOAD = 'upload'
+    FS_ROOT_IMG_UPLOAD = 'img'
+    FS_ROOT_FILE_UPLOAD = 'file'

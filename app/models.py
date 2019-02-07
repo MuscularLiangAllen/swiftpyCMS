@@ -75,6 +75,12 @@ class Article(db.Model):
     __repr__ = __str__
 
 
+class Image(db.Model):
+    id = db.Column(db.String(24), primary_key=True, default=short_uuid)
+    upload_time = db.Column(db.DateTime, default=datetime.datetime.now)
+    local_path = db.Column(db.String(80), unique=True, nullable=False)
+
+
 class Category(db.Model):
     id = db.Column(db.String(50), primary_key=True, default=next_uuid)
     name = db.Column(db.String(30), nullable=False, unique=True)

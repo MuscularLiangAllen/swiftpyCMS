@@ -5,6 +5,7 @@ import uuid
 
 import time
 
+import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
@@ -54,18 +55,48 @@ if __name__ == '__main__':
 
     # db.create_all()
 
-    app = Flask(__name__)
-    app.config.from_object(Config)
-    db = SQLAlchemy(app)
+    # app = Flask(__name__)
+    # app.config.from_object(Config)
+    # db = SQLAlchemy(app)
+    #
+    # t1 = Test(time=None)
+    #
+    # u2 = User(username='test2', register_time=None)
+    # u2.set_password('123')
+    # print(u2.register_time)
+    # db.session.add(u2)
+    # db.session.commit()
+    # print(u2.register_time)
 
-    t1 = Test(time=None)
+    print(__file__)
+    print(os.path.dirname(__file__))
+    print(os.path.abspath('/'))
+    print(os.path.abspath(os.path.dirname(__file__)))
+    print(os.path.basename(os.path.dirname(__file__)))
+    root_path = os.path.abspath('/')
+    print(os.path.join(root_path, 'swiftpy_fs'))
+    if not os.path.exists(os.path.join(root_path, 'swiftpy_fs')):
+        os.makedirs(os.path.join(root_path, 'swiftpy_fs'))
+    else:
+        print('exists')
 
-    u2 = User(username='test2', register_time=None)
-    u2.set_password('123')
-    print(u2.register_time)
-    db.session.add(u2)
-    db.session.commit()
-    print(u2.register_time)
+    # upload_path = os.path.join(Config.FS_ROOT_PATH, Config.FS_ROOT_DIR, Config.FS_ROOT_UPLOAD,
+    #                            Config.FS_ROOT_IMG_UPLOAD)
+    #
+    # print(os.path.abspath(upload_path))
+    # if not os.path.exists(upload_path):
+    #     os.makedirs(upload_path)
+
+    upload_path = os.path.join(Config.FS_ROOT_DIR, Config.FS_ROOT_UPLOAD, Config.FS_ROOT_IMG_UPLOAD)
+    abs_up_path = os.path.abspath(upload_path)
+    print(abs_up_path)
+
+    d = {'a':1, 'b':2}
+    l = []
+
+    print('abc.xy.jpg'.rsplit('.')[-1])
+
+    print(len('D:\\swiftpy_fs\\upload\\img\\gMhF2Tq48TEerLZ3m6Mm6Z.jpg'))
 
 
 

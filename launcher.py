@@ -9,4 +9,4 @@ __author__ = 'Allen LIANG'
 if __name__ == '__main__':
     # app.run(debug=True)
     app = create_app(Config)
-    app.run(debug=False)
+    app.run(debug=True)
