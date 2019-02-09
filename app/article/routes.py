@@ -2,7 +2,7 @@
 import os
 
 import shortuuid
-from flask import render_template, request, flash, redirect, url_for, jsonify, make_response
+from flask import render_template, request, flash, redirect, url_for, jsonify, make_response, current_app
 from flask_login import login_required
 from werkzeug.utils import secure_filename
 
@@ -67,14 +67,13 @@ def upload_img():
 @bp.route('/img/<string:img_name>', methods=['GET'])
 def get_img(img_name: str):
     img = Image.query.filter_by(id=img_name).first()
-    if img is not None:
-        with open(img.local_path, 'rb') as i:
-            response = make_response(i.read())
-            response.headers['Content-Type'] = 'image/png'
-            return response
+    pic_path = img.local_path if img else os.path.join(current_app.root_path, 'static/img/piclost.png')
 
-    return
+    with open(pic_path, 'rb') as i:
+        response = make_response(i.read())
+        response.headers['Content-Type'] = 'image/png'
 
+    return response
 
 
 

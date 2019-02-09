@@ -87,11 +87,13 @@ if __name__ == '__main__':
     # if not os.path.exists(upload_path):
     #     os.makedirs(upload_path)
 
-    upload_path = os.path.join(Config.FS_ROOT_DIR, Config.FS_ROOT_UPLOAD, Config.FS_ROOT_IMG_UPLOAD)
-    abs_up_path = os.path.abspath(upload_path)
-    print(abs_up_path)
+    # upload_path = os.path.join(Config.FS_ROOT_DIR, Config.FS_ROOT_UPLOAD, Config.FS_ROOT_IMG_UPLOAD)
+    # abs_up_path = os.path.abspath(upload_path)
+    # print(abs_up_path)
+    #
+    # os.makedirs(abs_up_path)
 
-    os.makedirs(abs_up_path)
+    print(os.path.abspath(Config.STATIC_FOLDER))
 
     # d = {'a':1, 'b':2}
     # l = []

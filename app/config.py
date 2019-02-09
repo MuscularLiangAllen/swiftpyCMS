@@ -16,3 +16,5 @@ class Config:
     FS_ROOT_UPLOAD = 'upload'
     FS_ROOT_IMG_UPLOAD = 'img'
     FS_ROOT_FILE_UPLOAD = 'file'
+
+    STATIC_FOLDER = 'static'
