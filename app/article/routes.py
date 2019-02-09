@@ -40,6 +40,7 @@ def test_json():
 def upload_img():
     upload_path = os.path.join(Config.FS_ROOT_DIR, Config.FS_ROOT_UPLOAD, Config.FS_ROOT_IMG_UPLOAD)
     abs_up_path = os.path.abspath(upload_path)
+    print(abs_up_path)
     if not os.path.exists(abs_up_path):
         os.makedirs(abs_up_path)
     resp_dict = {'errno': 0, 'data': []}

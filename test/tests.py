@@ -68,17 +68,17 @@ if __name__ == '__main__':
     # db.session.commit()
     # print(u2.register_time)
 
-    print(__file__)
-    print(os.path.dirname(__file__))
-    print(os.path.abspath('/'))
-    print(os.path.abspath(os.path.dirname(__file__)))
-    print(os.path.basename(os.path.dirname(__file__)))
-    root_path = os.path.abspath('/')
-    print(os.path.join(root_path, 'swiftpy_fs'))
-    if not os.path.exists(os.path.join(root_path, 'swiftpy_fs')):
-        os.makedirs(os.path.join(root_path, 'swiftpy_fs'))
-    else:
-        print('exists')
+    # print(__file__)
+    # print(os.path.dirname(__file__))
+    # print(os.path.abspath('/'))
+    # print(os.path.abspath(os.path.dirname(__file__)))
+    # print(os.path.basename(os.path.dirname(__file__)))
+    # root_path = os.path.abspath('/')
+    # print(os.path.join(root_path, 'swiftpy_fs'))
+    # if not os.path.exists(os.path.join(root_path, 'swiftpy_fs')):
+    #     os.makedirs(os.path.join(root_path, 'swiftpy_fs'))
+    # else:
+    #     print('exists')
 
     # upload_path = os.path.join(Config.FS_ROOT_PATH, Config.FS_ROOT_DIR, Config.FS_ROOT_UPLOAD,
     #                            Config.FS_ROOT_IMG_UPLOAD)
@@ -91,12 +91,14 @@ if __name__ == '__main__':
     abs_up_path = os.path.abspath(upload_path)
     print(abs_up_path)
 
-    d = {'a':1, 'b':2}
-    l = []
+    os.makedirs(abs_up_path)
 
-    print('abc.xy.jpg'.rsplit('.')[-1])
-
-    print(len('D:\\swiftpy_fs\\upload\\img\\gMhF2Tq48TEerLZ3m6Mm6Z.jpg'))
+    # d = {'a':1, 'b':2}
+    # l = []
+    #
+    # print('abc.xy.jpg'.rsplit('.')[-1])
+    #
+    # print(len('D:\\swiftpy_fs\\upload\\img\\gMhF2Tq48TEerLZ3m6Mm6Z.jpg'))
 
 
 
