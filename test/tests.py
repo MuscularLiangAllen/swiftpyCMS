@@ -12,11 +12,24 @@ from flask_sqlalchemy import SQLAlchemy
 from app import db, models, create_app, Config
 from app.models import User, Article
 
+from PIL import Image as im
+
+
 
 class Test:
     def __init__(self, time, time_default=datetime.datetime.now):
         if time is None and callable(time_default):
             print(time_default())
+
+
+def compress2png(src, dst=None, size=(320, 320)):
+    i = im.open(src)
+    print(i.size)
+    i.thumbnail(size)
+    dst = src if dst is None else dst
+    print(os.path.splitext(dst))
+    i.save('%s.png' % os.path.splitext(dst)[0])
+
 
 
 if __name__ == '__main__':
@@ -101,6 +114,13 @@ if __name__ == '__main__':
     # print('abc.xy.jpg'.rsplit('.')[-1])
     #
     # print(len('D:\\swiftpy_fs\\upload\\img\\gMhF2Tq48TEerLZ3m6Mm6Z.jpg'))
+
+
+    # compress2png('/swiftpy_fs/upload/img/SqPK7QXtcaHKenrD96DTVY.png')
+
+    print(type('') != str)
+
+
 
 
 

@@ -11,7 +11,7 @@ from app import db, login
 
 
 def next_uuid():
-    return '%015d%s' % ((time.time()*1000), uuid.uuid4().hex)
+    return '%015d%s' % ((time.time() * 1000), uuid.uuid4().hex)
 
 
 def short_uuid():

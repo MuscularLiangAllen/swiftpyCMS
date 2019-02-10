@@ -7,7 +7,6 @@ from app import create_app, Config
 
 __author__ = 'Allen LIANG'
 
-
 if __name__ == '__main__':
     app = create_app(Config)
     try:
@@ -20,4 +19,4 @@ if __name__ == '__main__':
     except PermissionError as e:
         print('Create [{}] failed : [{}]'.format(abs_up_path, e))
 
-    app.run(debug=True)
+    app.run(debug=True, port=8080)

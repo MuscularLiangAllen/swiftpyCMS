@@ -13,7 +13,6 @@ __author__ = 'Allen LIANG'
 
 from flask import Flask
 
-
 # app = Flask(__name__)
 # app.config.from_object(Config)
 # login = LoginManager(app)
@@ -49,5 +48,5 @@ def create_app(config_class=Config):
 
     return app
 
-from app import forms
 
+from app import forms
