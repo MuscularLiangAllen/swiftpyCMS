@@ -20,6 +20,13 @@
     <link rel="stylesheet" href={{url_for('static', filename='css/AdminLTE.min.css')}}>
 
     <link rel="stylesheet" href={{url_for('static', filename='css/skins/all-skins.min.css')}}>
+
+    <style>
+        #intro_div>.w-e-text-container {
+            height: 150px !important;
+        }
+    </style>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Content Header (Page header) -->
@@ -58,13 +65,15 @@
                             <span style="color: red;">[{{ error }}]</span>
                             {% endfor %}
                         </div>
-                        <div class="form-group">
-                          <label for="intro">Introduction</label>
-                            {{article_form.intro(id='intro', class='form-control', placeholder=article_form.intro.label.text)}}
-                            {% for error in article_form.intro.errors %}
-                            <span style="color: red;">[{{ error }}]</span>
-                            {% endfor %}
-                        </div>
+                        <!--<div class="form-group">-->
+                          <!--<label for="intro">Introduction</label>-->
+                            <!--{{article_form.intro(id='intro', class='form-control', placeholder=article_form.intro.label.text)}}-->
+                            <!--{% for error in article_form.intro.errors %}-->
+                            <!--<span style="color: red;">[{{ error }}]</span>-->
+                            <!--{% endfor %}-->
+                        <!--&lt;!&ndash;<textarea id="content_area" style="width:100%; height:200px; display: none;"></textarea>&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--</div>-->
                         <div class="form-group">
                           <label for="url">URL</label>
                             {{article_form.url(id='url', class='form-control', placeholder=article_form.url.label.text)}}
@@ -72,6 +81,16 @@
                             <span style="color: red;">[{{ error }}]</span>
                             {% endfor %}
                         </div>
+                    </div>
+                    <div class="box-body pad">
+                        <label >Introduction</label>
+                        <div id="intro_div">
+                            <p>Summary the article...</p>
+                        </div>
+                        {% for error in article_form.intro.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                        {{article_form.content(id='intro_area', style='display:none;')}}
                     </div>
                     <div class="box-body pad">
                         <div id="content_div">
@@ -100,16 +119,29 @@
 
 <script>
     var E = window.wangEditor
-        var editor = new E('#content_div')
-        var $content_area = $('#content_area')
-        editor.customConfig.onchange = function (html) {
-            // 监控变化，同步更新到 textarea
-            $content_area.val(html)
-        }
-        editor.customConfig.uploadImgServer = '/article/upload/img'  // 上传图片到服务器
-        editor.create()
-        // 初始化 textarea 的值
-        $content_area.val(editor.txt.html())
+
+    var editor_intro = new E('#intro_div')
+    var $intro_area = $('#content_area')
+    editor_intro.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $content_area.val(html)
+    }
+    editor_intro.customConfig.uploadImgServer = '/article/upload/img'  // 上传图片到服务器
+    editor_intro.create()
+    // 初始化 textarea 的值
+    $intro_area.val(editor_intro.txt.html())
+
+
+    var editor_content = new E('#content_div')
+    var $content_area = $('#content_area')
+    editor_content.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        $content_area.val(html)
+    }
+    editor_content.customConfig.uploadImgServer = '/article/upload/img'  // 上传图片到服务器
+    editor_content.create()
+    // 初始化 textarea 的值
+    $content_area.val(editor_content.txt.html())
 </script>
 </body>
 
