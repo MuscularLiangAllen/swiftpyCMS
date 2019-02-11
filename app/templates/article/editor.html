@@ -1,8 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% if title %}
+    <title>{{title}}</title>
+    {% else %}
+    <title>swiftpyCMS</title>
+    {% endif %}
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href={{url_for('static', filename='bootstrap/css/bootstrap.min.css')}}>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href={{url_for('static', filename='css/font-awesome.min.css')}}>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href={{url_for('static', filename='css/ionicons.min.css')}}>
+    <!-- Theme style -->
+    <link rel="stylesheet" href={{url_for('static', filename='css/AdminLTE.min.css')}}>
 
-{% extends "main/base.html" %}
-
-{% block content %}
-
+    <link rel="stylesheet" href={{url_for('static', filename='css/skins/all-skins.min.css')}}>
+</head>
 <body class="hold-transition skin-blue sidebar-mini">
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -78,6 +96,8 @@
 <script type="text/javascript" src={{url_for('static', filename='plugins/jquery-2.2.3.min.js')}}></script>
 <script type="text/javascript" src={{url_for('static', filename='plugins/wangeditor/wangEditor.min.js')}}></script>
 
+<script src={{url_for('static', filename='bootstrap/js/bootstrap.min.js')}}></script>
+
 <script>
     var E = window.wangEditor
         var editor = new E('#content_div')
@@ -93,4 +113,4 @@
 </script>
 </body>
 
-{% endblock %}
+</html>

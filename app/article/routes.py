@@ -69,7 +69,7 @@ def get_img(img_name: str):
 
     with open(pic_path, 'rb') as i:
         response = make_response(i.read())
-        response.headers['Content-Type'] = 'image/png'
+        response.headers['Content-Type'] = 'image/%s' % (os.path.splitext(pic_path)[1])
 
     return response
 
@@ -88,4 +88,5 @@ def compress2png(src, dst=None, size=(480, 480)):
     size = size if i.width >= 480 else (i.width, i.height)
     i.thumbnail(size, im.ANTIALIAS)
     dst = src if dst is None else dst
-    i.save('%s.png' % os.path.splitext(dst)[0])
+    # i.save('%s.png' % os.path.splitext(dst)[0])
+    i.save(dst)

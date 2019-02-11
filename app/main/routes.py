@@ -18,6 +18,6 @@ def index():
 @bp.route('/dashboard', methods=['GET'])
 @login_required
 def dashboard():
-    return render_template('main/welcome_iframe.html')
+    return render_template('main/welcome_iframe2.html')
 
 
