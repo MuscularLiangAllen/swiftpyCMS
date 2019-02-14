@@ -14,23 +14,39 @@ from app.models import Article, Image
 from PIL import Image as im
 
 
+@bp.route('/list', methods=['GET'])
+@login_required
+def list_article():
+    article_list = Article.query.all()
+    print(len(article_list))
+    for article in article_list:
+        print(article)
+    return render_template('article/list.html')
+
+
 @bp.route('/add', methods=['GET', 'POST'])
 @login_required
 def add_article():
     article_form = ArticleForm()
     if article_form.validate_on_submit():
         if Article.query.filter_by(title=article_form.title.data).first() is not None:
-            flash('Same title already existed in the database')
+            flash('Same title already existed in the database', 'error')
         elif db.session.query(Article).filter_by(url=article_form.url.data).first() is not None:
-            flash('Same URL already existed in the database')
+            flash('Same URL already existed in the database', 'error')
         else:
             article = Article(title=article_form.title.data, intro=article_form.intro.data,
                               content=article_form.content.data,
                               url=article_form.url.data if article_form.url.data.strip() != '' else None)
             db.session.add(article)
             db.session.commit()
+            flash('Article submit successfully', 'ok')
     return render_template('article/editor.html', article_form=article_form)
 
+
+@bp.route('/del', methods=['GET', 'POST'])
+@login_required
+def del_article():
+    pass
 
 @bp.route('/test-json', methods=['GET'])
 def test_json():

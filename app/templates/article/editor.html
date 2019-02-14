@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" href={{url_for('static', filename='css/skins/all-skins.min.css')}}>
 
+    <!-- Specify the height of editor -->
     <style>
         #intro_div>.w-e-text-container {
             height: 150px !important;
@@ -47,10 +48,17 @@
     <div class="row">
         <div class="col-md-12 col-lg-10">
             <div class="box">
-                {% with messages = get_flashed_messages() %}
+                {% with messages = get_flashed_messages(category_filter=["error"]) %}
                   {% if messages %}
                     {% for message in messages %}
                     <p class="login-box-msg" style="color: #b92c28;">{{ message }}</p>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+                {% with messages = get_flashed_messages(category_filter=["ok"]) %}
+                  {% if messages %}
+                    {% for message in messages %}
+                    <p class="login-box-msg" style="color: #00a65a;">{{ message }}</p>
                     {% endfor %}
                   {% endif %}
                 {% endwith %}
@@ -82,7 +90,7 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div class="box-body pad">
+                    <div class="box-body pad" style="margin-top: -15px;">
                         <label >Introduction</label>
                         <div id="intro_div">
                             <p>Summary the article...</p>
@@ -90,7 +98,7 @@
                         {% for error in article_form.intro.errors %}
                         <span style="color: red;">[{{ error }}]</span>
                         {% endfor %}
-                        {{article_form.content(id='intro_area', style='display:none;')}}
+                        {{article_form.intro(id='intro_area', style='display:none;')}}
                     </div>
                     <div class="box-body pad">
                         <div id="content_div">
@@ -100,7 +108,6 @@
                         <span style="color: red;">[{{ error }}]</span>
                         {% endfor %}
                         {{article_form.content(id='content_area', style='display:none;')}}
-                        <!--<textarea id="content_area" style="width:100%; height:200px; display: none;"></textarea>-->
                     </div>
                     {{article_form.submit()}}
                 </form>
@@ -121,10 +128,10 @@
     var E = window.wangEditor
 
     var editor_intro = new E('#intro_div')
-    var $intro_area = $('#content_area')
+    var $intro_area = $('#intro_area')
     editor_intro.customConfig.onchange = function (html) {
         // 监控变化，同步更新到 textarea
-        $content_area.val(html)
+        $intro_area.val(html)
     }
     editor_intro.customConfig.uploadImgServer = '/article/upload/img'  // 上传图片到服务器
     editor_intro.create()
@@ -135,12 +142,10 @@
     var editor_content = new E('#content_div')
     var $content_area = $('#content_area')
     editor_content.customConfig.onchange = function (html) {
-        // 监控变化，同步更新到 textarea
         $content_area.val(html)
     }
     editor_content.customConfig.uploadImgServer = '/article/upload/img'  // 上传图片到服务器
     editor_content.create()
-    // 初始化 textarea 的值
     $content_area.val(editor_content.txt.html())
 </script>
 </body>
