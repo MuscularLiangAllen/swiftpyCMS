@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
+import json
 import os
 
 import shortuuid
 from flask import render_template, request, flash, redirect, url_for, jsonify, make_response, current_app
-from flask_login import login_required
+from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 
 from app import db, Config
@@ -14,13 +15,22 @@ from app.models import Article, Image
 from PIL import Image as im
 
 
-@bp.route('/list', methods=['GET'])
+@bp.route('/list', methods=['GET', 'POST'])
 @login_required
 def list_article():
-    article_list = Article.query.all()
-    print(len(article_list))
-    for article in article_list:
-        print(article)
+    if request.method == 'POST':
+        data = request.form
+        page_size = int(data['limit'])
+        page_number = (int(data['offset']) + page_size) / page_size
+        article_list = Article.query.paginate(page_number, page_size, False).items
+        result = dict()
+        result['total'] = Article.query.count()
+        rows = [a.dict for a in article_list]
+        result['rows'] = [row.update({'author': a.author.username}) for row, a in zip(rows, article_list)]
+        print(json.dumps([row.update({'author': a.author.username}) for row, a in zip(rows, article_list)]))
+        print(json.dumps(rows))
+        return jsonify(result)
+
     return render_template('article/list.html')
 
 
@@ -34,7 +44,7 @@ def add_article():
         elif db.session.query(Article).filter_by(url=article_form.url.data).first() is not None:
             flash('Same URL already existed in the database', 'error')
         else:
-            article = Article(title=article_form.title.data, intro=article_form.intro.data,
+            article = Article(title=article_form.title.data, intro=article_form.intro.data, author=current_user,
                               content=article_form.content.data,
                               url=article_form.url.data if article_form.url.data.strip() != '' else None)
             db.session.add(article)
@@ -47,6 +57,7 @@ def add_article():
 @login_required
 def del_article():
     pass
+
 
 @bp.route('/test-json', methods=['GET'])
 def test_json():

@@ -26,6 +26,13 @@
         #intro_div>.w-e-text-container {
             height: 150px !important;
         }
+
+        .flash_msg {
+            margin: 0;
+            text-align: center;
+            padding: 0 20px 20px 20px;
+            font-size: 20px;
+        }
     </style>
 
 </head>
@@ -51,14 +58,14 @@
                 {% with messages = get_flashed_messages(category_filter=["error"]) %}
                   {% if messages %}
                     {% for message in messages %}
-                    <p class="login-box-msg" style="color: #b92c28;">{{ message }}</p>
+                    <p class="flash_msg" style="color: #b92c28;">{{ message }}</p>
                     {% endfor %}
                   {% endif %}
                 {% endwith %}
                 {% with messages = get_flashed_messages(category_filter=["ok"]) %}
                   {% if messages %}
                     {% for message in messages %}
-                    <p class="login-box-msg" style="color: #00a65a;">{{ message }}</p>
+                    <p class="flash_msg" style="color: #00a65a;">{{ message }}</p>
                     {% endfor %}
                   {% endif %}
                 {% endwith %}

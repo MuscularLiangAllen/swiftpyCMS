@@ -8,6 +8,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db, login
+import json
 
 
 def next_uuid():
@@ -16,6 +17,14 @@ def next_uuid():
 
 def short_uuid():
     return shortuuid.uuid()
+
+
+def _to_dict(obj, cls):
+    d = {}
+    for col in cls.__table__.columns:
+        v = getattr(obj, col.name)
+        d[col.name] = v() if callable(v) else str(v)
+    return d
 
 
 class User(UserMixin, db.Model):
@@ -57,6 +66,14 @@ class User(UserMixin, db.Model):
 
     __repr__ = __str__
 
+    @property
+    def dict(self):
+        return _to_dict(self, self.__class__)
+
+    @property
+    def json(self):
+        return json.dumps(_to_dict(self, self.__class__))
+
 
 class Article(db.Model):
     id = db.Column(db.String(50), primary_key=True, default=next_uuid)
@@ -73,6 +90,14 @@ class Article(db.Model):
         return '<Article: %s>' % self.title
 
     __repr__ = __str__
+
+    @property
+    def dict(self):
+        return _to_dict(self, self.__class__)
+
+    @property
+    def json(self):
+        return json.dumps(_to_dict(self, self.__class__))
 
 
 class Image(db.Model):
@@ -93,6 +118,14 @@ class Category(db.Model):
         return '<Category: {}>'.format(self.name)
 
     __repr__ = __str__
+
+    @property
+    def dict(self):
+        return _to_dict(self, self.__class__)
+
+    @property
+    def json(self):
+        return json.dumps(_to_dict(self, self.__class__))
 
 
 @login.user_loader
